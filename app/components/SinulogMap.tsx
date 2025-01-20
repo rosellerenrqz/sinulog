@@ -161,16 +161,6 @@ export default function SinulogMap() {
     return Array.from(eventLocations);
   }, []);
 
-  // Get markers to display on the map
-  const getMarkersToDisplay = useCallback(() => {
-    if (!selectedEvent) {
-      return getAllVenues();
-    }
-
-    // Only return the locations for the selected event
-    return getEventLocations(selectedEvent);
-  }, [selectedEvent, getEventLocations]);
-
   // Check if a location belongs to the selected event
   const isLocationForSelectedEvent = useCallback(
     (location: Location): boolean => {
@@ -222,15 +212,6 @@ export default function SinulogMap() {
 
     return results;
   }, [searchQuery]);
-
-  const handleSearchResultClick = (date: string, event: Event) => {
-    setSelectedDate(date);
-    setSelectedEvent(event);
-    const eventLocations = getEventLocations(event);
-    if (eventLocations.length > 0) {
-      setSelectedLocation(eventLocations[0]);
-    }
-  };
 
   // Add map reference
   const mapRef = useRef<google.maps.Map | null>(null);
